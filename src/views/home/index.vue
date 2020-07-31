@@ -44,7 +44,7 @@ export default {
       //获取banner图的嘻嘻你
       getBanners(){
           this.$axios({
-              url:"/banner/list",
+              url:"https://api.it120.cc/small4/banner/list",
           }).then(res=>{
               console.log(res);
               this.banner = res.data;
