@@ -5,6 +5,8 @@ import Category from "@/views/home/category";
 import Cart from "@/views/home/cart";
 import Me from "@/views/home/me";
 
+import goodsCate from "@/views/goods/cate";
+import goodsSearch from"@/views/goods/search";
 
 export default [{
     path: "/",
@@ -43,4 +45,19 @@ export default [{
         }
     ]
 },
+{
+    path:"/goods/cate/:cid",
+    name:"goods_cate",
+    component: goodsCate,
+    meta:{
+        title:"严选商城-商品分类列表"
+    }
+},{
+    path:"/goods/search",
+    name:"goods_search",
+    component:goodsSearch,
+    meta:{
+        title:"严选商城-商品搜索"
+    }
+}
 ];

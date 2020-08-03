@@ -34,31 +34,8 @@
         <span>全民砍价</span>
         <van-icon name="arrow" />
       </div>
-      <div class="cut-list">
-        <div class="cut-item" v-for="(item,index) in cutList" :key="index">
-          <div>
-            <img v-bind:src="item.pic" />
-          </div>
-          <div>
-            <p v-html="item.name"></p>
-            <p>{{item.characteristic}}</p>
-            <div class="cut-price">
-              <div>
-                <p>￥{{item.minPrice}}</p>
-                <p>低价</p>
-              </div>
-              <div>
-                <p>￥{{item.originalPrice}}</p>
-                <p>原价</p>
-              </div>
-              <div>
-                <p>{{item.stores}}</p>
-                <p>限量</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!--父传子组建通信-->
+      <Cut :cutList="cutlist" />
     </div>
 
     <!-- 精选专题区域 -->
@@ -83,18 +60,13 @@
         <span>人气推荐</span>
         <van-icon name="arrow" />
       </div>
-      <div class="goods-list">
-        <div class="good-item" v-for="(item,index) in goodsList" :key="index">
-             <img :src="item.pic" />
-          <p v-html="item.name"></p>
-          <p v-html="item.characteristic"></p>
-          <p>￥{{item.originalPrice}}</p>
-        </div>
-      </div>
+      <Recommand :goodList="goodlist" />
     </div>
   </div>
 </template>
 <script>
+import Cut from "@/components/home/cut.vue";
+import Recommand from "@/components/home/recommand.vue";
 export default {
   name: "",
   mounted() {
@@ -108,10 +80,14 @@ export default {
       banner: [],
       cutList:[],
       articleList: [],
-      goodsList:[],
+      goodsList: [],
     };
   },
   computed: {},
+  computed: {
+    Cut,
+    Recommand,
+  },
         methods: {
     //获取banner图的嘻嘻你
     getBanners() {
@@ -147,17 +123,16 @@ export default {
 
 
     getGoodsList(){
-        this.$axios({
-            url:"https://api.it120.cc/small4/shop/goods/list"
-        }).then(res=>{
-            console.log(res.data);
-            let data = res.data.filter(item=>{
-                return item.name.indexOf("测试") == -1;//过滤包含测试关键字的商品
-            });
-
-            this.goodsList = data.slice(-6);
-        })
-    }
+      this.$axios({
+        url:"https://api.it120.cc/small4/shop/goods/list"
+      }).then((res) => {
+        console.log(res.data);
+        let data = res.data.filter((item) => {
+          return item.name.indexOf("测试") == -1; //过滤包含测试关键字的商品
+        });
+        this.goodsList = data.slice(-6);
+      });
+    },
   },
 };
 </script>
@@ -201,47 +176,7 @@ export default {
       font-size: 0.35rem;
       border-bottom: #dddddd 1px solid;
     }
-    // 砍价列表样式
-     .cut-list {
-      width: 100%;
-      .cut-item {
-        width: 100%;
-        display: flex;
-        padding: 0.2rem;
-        box-sizing: border-box;
-        border-bottom: #dddddd 1px solid;
-        div:nth-of-type(1) {
-          width: 30%;
-          img {
-            width: 100%;
-            border-radius: 0.1rem;
-          }
-        }
-        div:nth-of-type(2) {
-          width: 65%;
-          margin-left: 5%;
-          p:nth-of-type(1) {
-            line-height: 0.65rem;
-            font-size: 0.35rem;
-          }
-           p:nth-of-type(2) {
-            line-height: 0.6rem;
-            font-size: 0.3rem;
-            color: #505050;
-          }
-
-          .cut-price {
-            width: 100%;
-            display: flex;
-            margin-top: 0.3rem;
-            div {
-              width: 33%;
-              text-align: center;
-            }
-          }
-        }
-      }
-    }
+    
   }
 
   // 精选专题
@@ -303,34 +238,7 @@ export default {
       border-bottom: #dddddd 1px solid;
     }
 
-    .goods-list {
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      .good-item {
-        width: 48%;
-        margin: 1%;
-        box-sizing: border-box;
-        img {
-          width: 100%;
-        }
-        p {
-          font-size: 0.35rem;
-          width: 100%;
-          line-height: 0.6rem;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-        }
-        p:nth-of-type(2){
-            color: #808080;
-            font-size: .3rem;
-        }
-        p:nth-of-type(3) {
-          color: #ff0000;
-        }
-      }
-    }
+    
   }
 }
 </style>
