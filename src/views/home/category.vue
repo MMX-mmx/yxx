@@ -7,7 +7,7 @@
         <van-tree-select :items="category" :main-active-index.sync="active" class="tree">
           <template #content>
             <div id="sub_cate">
-                <div class="item" v-for="(item,index) in getCate" :key="index" @click="gotoCate(item.id)">
+              <div class="item" v-for="(item,index) in getCate" :key="index" @click="gotoCate(item.id)">
                 <img :src="item.icon" />
                 <p>{{item.name}}</p>
               </div>
@@ -70,7 +70,7 @@ export default {
       })
     },
     gotoCate(cid){
-      this.$router.push("/goods/cate"+cid);
+      this.$router.push("/goods/cate/"+cid);
     },
     
   },

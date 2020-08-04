@@ -94,11 +94,13 @@ export default {
         if(this.historyList.length>8){
             this.historyList.pop();
         }
+
         localStorage.setItem("09c_history",JSON.stringify(this.historyList));
         this.keywords = "";
     },
     removeHistory(){
         localStorage.removeItem("09c_history");
+        
         this.getHistory();
     }
   },

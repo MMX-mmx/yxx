@@ -6,7 +6,10 @@ import Cart from "@/views/home/cart";
 import Me from "@/views/home/me";
 
 import goodsCate from "@/views/goods/cate";
-import goodsSearch from"@/views/goods/search";
+import goodsSearch from "@/views/goods/search";
+import goodsDetail from "@/views/goods/detail";
+
+import Login from "@/views/login/login";
 
 export default [{
     path: "/",
@@ -55,9 +58,23 @@ export default [{
 },{
     path:"/goods/search",
     name:"goods_search",
-    component:goodsSearch,
+    component: goodsSearch,
     meta:{
         title:"严选商城-商品搜索"
+    }
+},{
+    path:"/goods/detail/:id",
+    name:"goods_detail",
+    component: goodsDetail,
+    meta:{
+        title:"严选商城-商品详情"
+    }
+},{
+    path:"/login",
+    name:"login",
+    component: Login,
+    meta:{
+        title:"严选商城-用户登录"
     }
 }
 ];

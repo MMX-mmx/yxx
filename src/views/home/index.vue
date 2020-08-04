@@ -34,8 +34,8 @@
         <span>全民砍价</span>
         <van-icon name="arrow" />
       </div>
-      <!--父传子组建通信-->
-      <Cut :cutList="cutlist" />
+      <!-- 父传子组件通信 -->
+      <Cut :cutList="cutList" />
     </div>
 
     <!-- 精选专题区域 -->
@@ -60,12 +60,13 @@
         <span>人气推荐</span>
         <van-icon name="arrow" />
       </div>
-      <Recommand :goodList="goodlist" />
+      <Recommand :goodsList="goodsList" />
     </div>
   </div>
 </template>
+
 <script>
-import Cut from "@/components/home/cut.vue";
+import Cut from "@/components/home/cut.vue"; //第一步import导入组件
 import Recommand from "@/components/home/recommand.vue";
 export default {
   name: "",
@@ -78,21 +79,21 @@ export default {
   data() {
     return {
       banner: [],
-      cutList:[],
+      cutList: [],
       articleList: [],
       goodsList: [],
     };
   },
   computed: {},
-  computed: {
+  components: {
     Cut,
     Recommand,
   },
-        methods: {
+  methods: {
     //获取banner图的嘻嘻你
     getBanners() {
       this.$axios({
-        url: "https://api.it120.cc/small4/banner/list",
+        url: "/banner/list",
       }).then((res) => {
         console.log(res);
         this.banner = res.data;
@@ -121,21 +122,22 @@ export default {
       });
     },
 
-
-    getGoodsList(){
+    getGoodsList() {
       this.$axios({
-        url:"https://api.it120.cc/small4/shop/goods/list"
+        url: "https://api.it120.cc/small4/shop/goods/list",
       }).then((res) => {
         console.log(res.data);
         let data = res.data.filter((item) => {
           return item.name.indexOf("测试") == -1; //过滤包含测试关键字的商品
         });
+
         this.goodsList = data.slice(-6);
       });
     },
   },
 };
 </script>
+
 <style scoped lang="scss">
 .box {
   width: 100%;
@@ -144,7 +146,7 @@ export default {
   #banner {
     width: 100%;
     position: relative;
- img {
+    img {
       width: 100%;
     }
     .icons {
@@ -176,7 +178,6 @@ export default {
       font-size: 0.35rem;
       border-bottom: #dddddd 1px solid;
     }
-    
   }
 
   // 精选专题
@@ -237,8 +238,6 @@ export default {
       font-size: 0.35rem;
       border-bottom: #dddddd 1px solid;
     }
-
-    
   }
 }
 </style>

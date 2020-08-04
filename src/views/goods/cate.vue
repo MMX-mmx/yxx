@@ -41,7 +41,7 @@ export default {
         this.goodsList = data;
       });
     },
-     goBack(){
+    goBack(){
       console.log("test");
       this.$router.go(-1);
     }
