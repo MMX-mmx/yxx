@@ -31,13 +31,18 @@
     <!-- 底部商品的提交栏 -->
     <van-goods-action>
       <van-goods-action-icon icon="chat-o" text="客服" />
-      <van-goods-action-icon icon="cart-o" text="购物车" />
+      <van-goods-action-icon icon="cart-o" text="购物车" @click="$router.push('/cart')" :badge="this.$store.getters.totalNums" />
       <van-goods-action-icon icon="shop-o" text="店铺" />
       <van-goods-action-button type="warning" text="立即购买" />
       <van-goods-action-button type="danger" text="加入购物车" @click="skuShow = !skuShow" />
     </van-goods-action>
 
     <van-sku v-model="skuShow" :sku="sku" :goods="goods" @add-cart="addCart" />
+
+    <!-- 返回的按钮 -->
+    <div id="back" @click="$router.go(-1)">
+      <van-icon name="arrow-left" size="25"></van-icon>
+    </div>
   </div>
 </template>
 
@@ -79,37 +84,41 @@ export default {
           },
         ],
         list: [
-            {
-              id:1000,
-              c1:1,  
-              s1:8,
-              price: 100,
-              stock_num:100,
-            },{
-              id:1000,
-              c1:1,  
-              s1:9,
-              price: 100,
-              stock_num:100,
-            },{
-              id:1000,
-              c1:2,  
-              s1:8,
-              price: 100,
-              stock_num:100,
-            },{
-              id:1000,
-              c1:2,  
-              s1:9,
-              price: 100,
-              stock_num:100,
-            },{
-              id:1000,
-              c1:3,  
-              s1:8,
-              price: 100,
-              stock_num:100,
-            },
+           {
+            id: 1000,
+            c1: 1,
+            s1: 8,
+            price: 100,
+            stock_num: 100,
+          },
+          {
+            id: 1000,
+            c1: 1,
+            s1: 9,
+            price: 100,
+            stock_num: 100,
+          },
+          {
+            id: 1000,
+            c1: 2,
+            s1: 8,
+            price: 100,
+            stock_num: 100,
+          },
+          {
+            id: 1000,
+            c1: 2,
+            s1: 9,
+            price: 100,
+            stock_num: 100,
+          },
+          {
+            id: 1000,
+            c1: 3,
+            s1: 8,
+            price: 100,
+            stock_num: 100,
+          },
         ],
         price: "1.00", // 默认价格（单位元）
         stock_num: 227, // 商品总库存
@@ -140,7 +149,7 @@ export default {
     },
     //加入购物车
     addCart(){
-        //判断一下用户是否登陆
+      //判断一下用户是否登陆
         let data = localStorage.getItem("09c_user");
         if(data == null){
             this.$toast.fail("请先登录您的账号");
@@ -148,6 +157,33 @@ export default {
             return false;
         }
 
+      //具体加入购物车的信息
+      
+      let cartList = this.$store.state.cartList;
+      let index = cartList.findIndex((item) => {
+        return item.id == this.gid;
+      });
+      //购物车中存在当前商品
+      if (index > -1) {
+        cartList.map((item) => {
+         //判断添加的商品当前商品是否一致
+          if(item.id == this.gid){
+             item.nums++;
+          }
+         
+        });
+      } else {//商品不存在的时候
+        //实例化购物车的对象信息
+        let obj = new Object();
+        obj.id = this.gid;
+        obj.name = this.goodsInfo.name;
+        obj.price = this.goodsInfo.originalPrice;
+        obj.img = this.goods.picture;
+        obj.nums = 1;
+        obj.checked = true;
+        cartList.push(obj);
+      }
+      this.$store.commit("addCart", cartList); //添加购物车的对象
 
         this.$toast.success("加入购物车成功");
 
@@ -161,7 +197,14 @@ export default {
 .box {
   width: 100%;
   background: #f0f0f0;
-
+  #back{
+    padding: .1rem;
+    position:fixed;
+    top: .3rem;
+    left: .2rem;
+    border-radius: 50%;
+    background: #dddddd;
+  }
   #banner {
     width: 100%;
 

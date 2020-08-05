@@ -8,6 +8,8 @@ import Me from "@/views/home/me";
 import goodsCate from "@/views/goods/cate";
 import goodsSearch from "@/views/goods/search";
 import goodsDetail from "@/views/goods/detail";
+import article from "@/views/article/article";
+import articleDetail from "@/views/article/detail";
 
 import Login from "@/views/login/login";
 
@@ -75,6 +77,20 @@ export default [{
     component: Login,
     meta:{
         title:"严选商城-用户登录"
+    }
+},{
+    path:"/article",
+    name:"article",
+    component: article,
+    meta:{
+        title:"严选商城-严选专栏"
+    }
+},{
+    path:"/article/detail/:id",
+    name:"article_detail",
+    component: articleDetail,
+    meta:{
+        title:"严选商城-专栏详情"
     }
 }
 ];
