@@ -10,19 +10,19 @@
       </van-swipe>
       <div class="icons">
         <div class="icon-item">
-          <van-icon name="like" size="30" />
+          <img src="/static/img/1.png" alt />
           <p>签到</p>
         </div>
         <div class="icon-item">
-          <van-icon name="gift" size="30" />
+         <img src="/static/img/2.png" alt />
           <p>礼券</p>
         </div>
         <div class="icon-item">
-          <van-icon name="coupon" size="30" />
+          <img src="/static/img/3.png" alt />
           <p>砍价</p>
         </div>
         <div class="icon-item">
-          <van-icon name="label" size="30" />
+           <img src="/static/img/4.png" alt />
           <p>专栏</p>
         </div>
       </div>
@@ -90,6 +90,7 @@ export default {
     Recommand,
   },
   methods: {
+    //进入文章
     tog(){
       this.$router.push({
         path:"/article"
@@ -155,6 +156,10 @@ export default {
       width: 100%;
     }
     .icons {
+      img{
+        height: 40px;
+        width: 40px;
+      }
       width: 100%;
       height: 2rem;
       background: #fff;

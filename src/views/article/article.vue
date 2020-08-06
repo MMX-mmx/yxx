@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-      <van-nav-bar title="严选专栏" left-arrow />
+      <van-nav-bar title="严选专栏" left-arrow @click-left="goBack"/>
       <div class="list">
           <div class="item" v-for="(item,index) in articleList" :key="index">
               <img :src="item.pic"/>
@@ -26,6 +26,12 @@ export default {
   computed:{
   },
   methods: {
+      //返回首页
+      goBack(){
+         this.$router.go(-1); 
+      },
+      
+
       getArticle(){
           this.$axios({
               url:"/cms/news/list"
