@@ -47,7 +47,7 @@
       <div class="article-list">
         <ul>
           <li v-for="(item,index) in articleList" :key="index">
-            <img :src="item.pic" />
+            <img :src="item.pic" @click="$router.push('/article/detail/'+item.id)"/>
             <p v-html="item.title"></p>
             <p v-html="item.descript"></p>
           </li>
